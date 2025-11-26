@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        button, a { cursor: pointer; }
+
+        * {
+            font-family: var(--font);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            color: var(--black);
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;    
+            outline: none;
+            transition: all 0.2s;
+            }
+            *::-webkit-scrollbar {
+                display: none;
+            }
+
+        body[data-theme="white"] {
+            --none: #000000;
+            --black: #000000;
+            --white: #ffffff;
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(255, 255, 255, 0.2);
+            --whiteseventy: rgba(255, 255, 255, 0.8);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(255, 255, 255, 0.9);
+            --blackest-gad: rgb(36, 36, 36);
+            --gdone: #C6A0FF; --gdtwo: #fff4a0; --gdthree: #a0ffb8;
+            --other-white: #EFF4F9;
+            --invert: none;
+            --accent-color: #0078D4;
+            --grey: rgb(222, 222, 222);
+            --window-main: rgb(255, 255, 255);
+            --greyborder: #858585;
+        }
+
+        body[data-theme="dark"] {
+            --none: #000000;
+            --black: #ffffff;
+            --white: rgba(0, 0, 0, 0.5);
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(0, 0, 0, 0.2);
+            --whiteseventy: rgba(0, 0, 0, 0.5);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(0, 0, 0, 0.3);
+            --blackest-gad: rgb(227, 227, 227);
+            --gdone: rgba(40, 40, 40, 0.5); --gdtwo: rgba(40, 40, 40, 0.5); --gdthree: rgba(40, 40, 40, 0.5);
+            --window-main: rgb(20, 20, 20);
+            --other-white: #191919;
+            --invert: invert(3);
+            --accent-color: #0078D4;
+            --grey: rgb(31, 31, 31);
+            --greyborder: #858585;
+        }
+
+        body {
+            color: var(--black);
+            display: flex;
+            flex-direction: column;
+            font-family: var(--font);
+            height: 100vh;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            box-sizing: border-box;
+            padding: 10px;
+            gap: 10px;
+            background: 0;
+
+            & span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                & img {
+                    height: 25px;
+                }
+            }
+        }
+
+        .main {
+            background: var(--window-main);
+            margin-top: 55px;
+            height: 100%;
+            overflow-y: hidden;
+        }
+
+        .mainmain {
+            background: var(--window-main);
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: left;
+            box-sizing: border-box;
+            gap: 15px;
+        }
+
+        hr { border: 1px solid var(--grey); }
+
+        .headbt button {
+            padding: 4px 8px;
+            border-radius: 5px;
+            background: var(--window-main);
+            color: var(--black);
+            border: 0;
+        }
+
+        .mainmain textarea {
+            font-size: 15px;
+        }
+
+        .vertical-line {
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            height: 40px;
+            max-width: 0px;
+        }
+
+        button {
+            height: 40px;
+            font-size: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background: var(--whiteseventy);
+            border: 0;
+            border-radius: 5px;
+        }
+
+        .color {
+            width: 15px;
+            height: 15px;
+            min-width: 15px;
+            min-height: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .color:hover {
+            transform: scale(1.15);
+        }
+
+        .color.active {
+            border-color: var(--accent-color);
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.3);
+        }
+
+        canvas {
+            cursor: crosshair;
+            background: white;
+            border-radius: 0 0 10px 10px;
+        }
+
+        header button:hover {
+            background: var(--grey);
+        }
+
+        header button.active {
+            background: var(--accent-color);
+            color: white;
+        }
+    </style>
+</head>
+<body data-theme="white">
+    <header>
+        <button id="brushBtn" class="active"><i class="fas fa-paintbrush"></i></button>
+        <button id="eraserBtn"><i class="fas fa-eraser"></i></button>
+        <span class="vertical-line"></span>
+        <div style="height: 40px; width: 100%; display: flex; justify-content: start; gap: 10px; align-items: center; overflow-x: auto; box-sizing: border-box; padding-left: 5px; padding-right: 5px;" class="colors">
+            <button style="background: #000000;" class="color active" data-color="#000000"></button>
+            <button style="background: #FF0000;" class="color" data-color="#FF0000"></button>
+            <button style="background: #00FF00;" class="color" data-color="#00FF00"></button>
+            <button style="background: #0000FF;" class="color" data-color="#0000FF"></button>
+            <button style="background: #FFFF00;" class="color" data-color="#FFFF00"></button>
+            <button style="background: #FF00FF;" class="color" data-color="#FF00FF"></button>
+            <button style="background: #00FFFF;" class="color" data-color="#00FFFF"></button>
+            <button style="background: #FFA500;" class="color" data-color="#FFA500"></button>
+            <button style="background: #800080;" class="color" data-color="#800080"></button>
+            <button style="background: #FFC0CB;" class="color" data-color="#FFC0CB"></button>
+            <button style="background: #A52A2A;" class="color" data-color="#A52A2A"></button>
+            <button style="background: #808080;" class="color" data-color="#808080"></button>
+            <button style="background: #FFFFFF; border: 2px solid #ccc;" class="color" data-color="#FFFFFF"></button>
+        </div>
+        <span class="vertical-line"></span>
+        <button id="clearBtn"><i class="fas fa-trash"></i></button>
+    </header>
+
+    <div class="main">
+        <div id="main" class="mainmain">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Настройка окна
+        const win = window.parent.document.getElementById("windowbasic");
+        win.style.minWidth = "550px";
+        win.style.width = "auto";
+        
+        // Функции показа экранов
+        function hideAll() {
+            document.getElementById('main').style.display = 'none';
+        }
+
+        function showMain() {
+            hideAll();
+            document.getElementById('main').style.display = 'flex';
+        }
+
+        showMain();
+
+        // Синхронизация темы с родительским окном
+        const systemweb = window.parent.document.body;
+        function updateTheme() {
+            const theme = systemweb.getAttribute('data-theme');
+            document.body.setAttribute('data-theme', theme);
+        }
+        updateTheme();
+        const observer = new MutationObserver(() => updateTheme());
+        observer.observe(systemweb, { attributes: true, attributeFilter: ['data-theme'] });
+
+        // ============= PAINT ФУНКЦИОНАЛ =============
+        
+        // Получаем элементы
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const brushBtn = document.getElementById('brushBtn');
+        const eraserBtn = document.getElementById('eraserBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const colorButtons = document.querySelectorAll('.color');
+
+        // Устанавливаем размер холста
+        function resizeCanvas() {
+            const container = document.getElementById('main');
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Переменные для рисования
+        let painting = false;
+        let currentColor = '#000000';
+        let currentTool = 'brush';
+        let brushSize = 3;
+
+        // Выбор цвета
+        colorButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                colorButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentColor = btn.getAttribute('data-color');
+                if (currentTool === 'brush') {
+                    ctx.strokeStyle = currentColor;
+                }
+            });
+        });
+
+        // Выбор кисти
+        brushBtn.addEventListener('click', () => {
+            currentTool = 'brush';
+            brushBtn.classList.add('active');
+            eraserBtn.classList.remove('active');
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = brushSize;
+        });
+
+        // Выбор ластика
+        eraserBtn.addEventListener('click', () => {
+            currentTool = 'eraser';
+            eraserBtn.classList.add('active');
+            brushBtn.classList.remove('active');
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 20;
+        });
+
+        // Очистка холста
+        clearBtn.addEventListener('click', () => {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Функции рисования
+        function startPosition(e) {
+            painting = true;
+            draw(e);
+        }
+
+        function endPosition() {
+            painting = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!painting) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        // События мыши
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', endPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseleave', endPosition);
+
+        // Поддержка сенсорных экранов
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+
+        // Инициализация настроек рисования
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = brushSize;
+    </script>
+</body>
+</html>

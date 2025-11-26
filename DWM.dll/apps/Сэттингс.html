@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        button, a { cursor: pointer; }
+
+        * {
+            font-family: var(--font);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            color: var(--black);
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;    
+            outline: none;
+            transition: all 0.2s;
+            }
+            *::-webkit-scrollbar {
+                display: none;
+            }
+
+        body[data-theme="white"] {
+            --none: #000000;
+            --black: #000000;
+            --white: #ffffff;
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(255, 255, 255, 0.2);
+            --whiteseventy: rgba(255, 255, 255, 0.8);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(255, 255, 255, 0.9);
+            --blackest-gad: rgb(36, 36, 36);
+            --gdone: #C6A0FF; --gdtwo: #fff4a0; --gdthree: #a0ffb8;
+            --other-white: #EFF4F9;
+            --invert: none;
+            --accent-color: #0078D4;
+            --grey: rgb(222, 222, 222);
+            --window-main: rgb(255, 255, 255);
+            --greyborder: #858585;
+        }
+
+        body[data-theme="dark"] {
+            --none: #000000;
+            --black: #ffffff;
+            --white: rgba(0, 0, 0, 0.5);
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(0, 0, 0, 0.2);
+            --whiteseventy: rgba(0, 0, 0, 0.5);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(0, 0, 0, 0.3);
+            --blackest-gad: rgb(227, 227, 227);
+            --gdone: rgba(40, 40, 40, 0.5); --gdtwo: rgba(40, 40, 40, 0.5); --gdthree: rgba(40, 40, 40, 0.5);
+            --window-main: rgb(20, 20, 20);
+            --other-white: #191919;
+            --invert: invert(3);
+            --accent-color: #0078D4;
+            --grey: rgb(31, 31, 31);
+            --greyborder: #858585;
+        }
+
+        body {
+            color: var(--black);
+            display: flex;
+            flex-direction: column;
+            font-family: var(--font);
+            height: 100vh;
+        }
+
+        .main {
+            background: var(--window-main);
+            height: 100%;
+            overflow-y: hidden;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mainmain {
+            background: var(--window-main);
+            flex: 1;
+            background: var(--window-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            box-sizing: border-box;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        hr { border: 1px solid var(--grey); }
+
+        .mainleft {
+            width: 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            padding-top: 10px;
+            gap: 10px;
+            background: var(--other-white);
+
+            & button {
+                width: 40px;
+                height: 40px;
+                background: 0;
+                border: 0;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--other-white);
+
+                & img {
+                    width: 50%;
+                }
+            }
+        }
+
+        .mainleft button:hover {
+            background: var(--window-main);
+        }
+
+        .bcgs {
+            width: 100%;
+            box-sizing: border-box;
+            gap: 15px;
+            display: flex;
+            border: 0;
+        }
+
+        .bcgs img {
+            height: 100px;
+            border-radius: 5px;
+            border: 0px solid var(--accent-color);
+            transition: all 0.1s;
+        }
+
+        .bcgs img:hover {
+            border: 2px solid var(--accent-color);
+            transition: all 0.1s;
+        }
+
+        .themes {
+            width: 100%;
+            box-sizing: border-box;
+            padding-top: 0;
+            gap: 15px;
+            display: flex;
+
+            & button {
+                padding: 10px 20px;
+                background: var(--other-white);
+                border: 0;
+                border-radius: 5px;
+            }
+        }
+
+        .doebh {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .doh {
+            flex: 1 1 0;
+            background: var(--other-white);
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            & img {
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="white">
+
+    <div id="main" class="main">
+        <div class="mainleft">
+            <button onclick="showMain()" style="background: var(--accent-color);"><img src="Personalisation.webp" alt="Персонализация"></button>
+            <button onclick="showDoebender()"><img src="doebender.webp" alt="Доебендер"></button>
+            <button onclick="showDowndate()"><img src="update.svg" alt="Обновление"></button>
+        </div>
+        
+        <div class="mainmain">
+            <p>Выбери бгсс</p>
+            <div class="bcgs">
+                <img onclick="window.parent.document.body.setAttribute('bcg', 'white');" src="/imageres.dll/winbcg.png" alt="первый фон">
+                <img onclick="window.parent.document.body.setAttribute('bcg', 'black');" src="/imageres.dll/winbcgb.png" alt="первый фон">
+            </div>
+            <p>УРА ПАЛИТРА</p>
+            <div class="themes">
+                <button onclick="window.parent.document.body.setAttribute('data-theme', 'white');">Светлая</button>
+                <button onclick="window.parent.document.body.setAttribute('data-theme', 'dark');">Темная</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="doebender" class="main">
+        <div class="mainleft">
+            <button onclick="showMain()"><img src="Personalisation.webp" alt="Персонализация"></button>
+            <button onclick="showDoebender()" style="background: var(--accent-color);"><img src="doebender.webp" alt="Доебендер"></button>
+            <button onclick="showDowndate()"><img src="update.svg" alt="Обновление"></button>
+        </div>
+        
+        <div class="mainmain">
+            <p>Характер Доебендера</p>
+            <div class="doebh">
+                <div class="doh">
+                    <p>Ревнивый</p>
+                    <img src="ya.png" alt="ya">
+                </div>
+                <div class="doh">
+                    <p>Доблестный</p>
+                    <img src="ya.png" alt="ya">
+                </div>
+                <div class="doh">
+                    <p>Любимый~</p>
+                    <img src="ya.png" alt="ya">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="downdate" class="main">
+        <div class="mainleft">
+            <button onclick="showMain()"><img src="Personalisation.webp" alt="Персонализация"></button>
+            <button onclick="showDoebender()"><img src="doebender.webp" alt="Доебендер"></button>
+            <button onclick="showDowndate()" style="background: var(--accent-color);"><img src="update.svg" alt="Обновление"></button>
+        </div>
+        
+        <div class="mainmain">
+            <p>Шиндовс даундейт</p>
+            <iframe src="https://ladnoanet.github.io/Shindows-downdate?os=LL" style="flex: 1; border-radius: 5px; background: white;" frameborder="0" aria-placeholder="Сервер грузится..."></iframe>
+        </div>
+    </div>
+
+    <script>
+        const win = window.parent.document.getElementById("windowbasic");
+        win.style.minWidth = "550px";
+        win.style.width = "auto";
+        
+        function hideAll() {
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('doebender').style.display = 'none';
+            document.getElementById('downdate').style.display = 'none';
+        }
+
+        function showMain() {
+            hideAll();
+            document.getElementById('main').style.display = 'flex';
+        }
+        
+        function showDoebender() {
+            hideAll();
+            document.getElementById('doebender').style.display = 'flex';
+        }
+
+        function showDowndate() {
+            hideAll();
+            document.getElementById('downdate').style.display = 'flex';
+        }
+
+        hideAll();
+        showMain();
+
+        const systemweb = window.parent.document.body;
+        function updateTheme() {
+            const theme = systemweb.getAttribute('data-theme');
+            document.body.setAttribute('data-theme', theme);
+        }
+        updateTheme();
+        const observer = new MutationObserver(() => updateTheme());
+        observer.observe(systemweb, { attributes: true, attributeFilter: ['data-theme'] });
+    </script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        button, a { cursor: pointer; }
+
+        * {
+            font-family: var(--font);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            color: var(--black);
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;    
+            outline: none;
+            transition: all 0.2s;
+            }
+            *::-webkit-scrollbar {
+                display: none;
+            }
+
+        body[data-theme="white"] {
+            --none: #000000;
+            --black: #000000;
+            --white: #ffffff;
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(255, 255, 255, 0.2);
+            --whiteseventy: rgba(255, 255, 255, 0.8);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(255, 255, 255, 0.9);
+            --blackest-gad: rgb(36, 36, 36);
+            --gdone: #C6A0FF; --gdtwo: #fff4a0; --gdthree: #a0ffb8;
+            --other-white: #EFF4F9;
+            --invert: none;
+            --accent-color: #0078D4;
+            --grey: rgb(222, 222, 222);
+            --window-main: rgb(255, 255, 255);
+            --greyborder: #858585;
+        }
+
+        body[data-theme="dark"] {
+            --none: #000000;
+            --black: #ffffff;
+            --white: rgba(0, 0, 0, 0.5);
+            --whiteblur: #3d549e40;
+            --whitefifty: rgba(0, 0, 0, 0.2);
+            --whiteseventy: rgba(0, 0, 0, 0.5);
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --maxbord: 20px;
+            --okbord: 15px;
+            --minbord: 7.5px;
+            --button-of-panel: rgba(0, 0, 0, 0.3);
+            --blackest-gad: rgb(227, 227, 227);
+            --gdone: rgba(40, 40, 40, 0.5); --gdtwo: rgba(40, 40, 40, 0.5); --gdthree: rgba(40, 40, 40, 0.5);
+            --window-main: rgb(20, 20, 20);
+            --other-white: #191919;
+            --invert: invert(3);
+            --accent-color: #0078D4;
+            --grey: rgb(31, 31, 31);
+            --greyborder: #858585;
+        }
+
+        body {
+            color: var(--black);
+            display: flex;
+            flex-direction: column;
+            font-family: var(--font);
+            height: 100vh;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            box-sizing: border-box;
+            padding-left: 15px;
+            padding-right: 15px;
+            gap: 15px;
+            background: 0;
+
+            & span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                & img {
+                    height: 25px;
+                }
+            }
+        }
+
+        .main {
+            background: var(--window-main);
+            margin-top: 45px;
+            height: 100%;
+            overflow-y: hidden;
+        }
+
+        .mainheader {
+            height: 55px;
+            background: var(--window-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            gap: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            
+            & span {
+                height: 35px;
+                border: 1px solid var(--greyborder);
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                box-sizing: border-box;
+                padding-left: 10px; padding-right: 10px;
+            }
+
+            & button {
+                height: 35px;
+                width: 35px;
+                background: 0;
+                border: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                & svg {
+                    height: 60%;
+                }
+            }
+        }
+
+        .mainheader button:hover {
+            background: var(--other-white);
+            border-radius: 5px;
+        }
+
+        .mainmain {
+            background: var(--window-main);
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: left;
+            box-sizing: border-box;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .main-item {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 5px;
+
+            & img {
+                width: 40px;
+            }
+
+            & p {
+                font-size: 20px;
+            }
+        }
+        .main-item:hover {
+            background: var(--other-white);
+        }
+
+        .flex-main-element {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+        }
+
+        hr { border: 1px solid var(--grey); }
+    </style>
+</head>
+<body data-theme="white">
+    <header>
+        <span><img src="sort.png" alt="сорт">Кто по злаку?</span>
+        <span><img src="view.png" alt="сорт">Да показываю</span>
+    </header>
+
+    <div class="main">
+        <div class="mainheader"> <button onclick="showMain()"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-flip="false" data-invert="false" data-rounded="false" style="width: 14px; height: 14px;"><path fill="var(--black)" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg></button> <button style="rotate: 180deg;"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-left " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-flip="false" data-invert="false" data-rounded="false" style="width: 14px; height: 14px;"><path fill="var(--greyborder)" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg></button> <span id="path">Мой Компьютер/</span> </div>
+
+        <!-- Главный экран -->
+        <div id="main" class="mainmain">
+            <div class="flex-main-element">
+                <div class="main-item" onclick="openC()">
+                    <img src="disk-sm.png" alt="диск">
+                    <p>Касета Ц:/</p>
+                </div>
+                <div class="main-item" onclick="openA()">
+                    <img src="disk.png" alt="диск">
+                    <p>Хавальщик дисков</p>
+                </div>
+            </div>
+            <hr>
+            <div class="main-item" onclick="openDownloads()">
+                <img src="folder-sm.png" alt="папка">
+                <p>Довнлоады</p>
+            </div>
+        </div>
+
+        <!-- C:/ -->
+        <div id="diskC" class="mainmain">
+            <div class="main-item" onclick="openFolder('games')">
+                <img src="folder-sm.png" alt="папка">
+                <p>Сисьtheme79</p>
+            </div>
+            <div class="main-item" onclick="window.parent.closeawindow(); setTimeout(() => { window.parent.openwindow('Файлы') }, 210)">
+                <img src="file.png">
+                <p>explorer.exe</p>
+            </div>
+        </div>
+
+        <!-- Папка C:/Игры -->
+        <div id="games" class="mainmain">
+            <div class="main-item" onclick="window.parent.closeawindow(); setTimeout(() => { window.parent.openalert(id='sys') }, 210)">
+                <img src="file.png">
+                <p>lick.sys</p>
+            </div>
+            <div class="main-item" onclick="window.parent.closeawindow(); setTimeout(() => { window.parent.openalert(id='sys') }, 210)">
+                <img src="file.png">
+                <p>con_figure.ini</p>
+            </div>
+        </div>
+
+        <!-- A:/ -->
+        <div id="diskA" class="mainmain" style="align-items:center; justify-content:center;">
+            <p>Вставить не хочешь?</p>
+        </div>
+
+        <!-- Downloads -->
+        <div id="downloads" class="mainmain">
+            <div class="main-item" onclick="window.parent.closeawindow(); setTimeout(() => { window.parent.openalert(id='kids') }, 210)">
+                <img src="file.png">
+                <p>дети.png</p>
+            </div>
+            <div class="main-item" onclick="window.parent.closeawindow(); setTimeout(() => { window.parent.openwindow(app='vavaware-tуls') }, 210)">
+                <img src="file.png">
+                <p>vavaware-tуls.exe</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            const win = window.parent.document.getElementById("windowbasic");
+            win.style.minWidth = "550px";
+            win.style.width = "auto";
+
+        const path = document.getElementById('path');
+
+        function hideAll() {
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('diskC').style.display = 'none';
+            document.getElementById('games').style.display = 'none';
+            document.getElementById('diskA').style.display = 'none';
+            document.getElementById('downloads').style.display = 'none';
+        }
+
+        function showMain() {
+            hideAll();
+            document.getElementById('main').style.display = 'flex';
+            path.textContent = 'Мой Компьютер/';
+        }
+
+        function openC() {
+            hideAll();
+            document.getElementById('diskC').style.display = 'flex';
+            path.textContent = 'C:/';
+        }
+
+        function openA() {
+            hideAll();
+            document.getElementById('diskA').style.display = 'flex';
+            path.textContent = 'A:/';
+        }
+
+        function openDownloads() {
+            hideAll();
+            document.getElementById('downloads').style.display = 'flex';
+            path.textContent = 'C:/Юзабилизер/Довнлоады/';
+        }
+
+        function openFolder(folderId) {
+            hideAll();
+            document.getElementById(folderId).style.display = 'flex';
+            path.textContent = 'C:/Сисьtheme79/';
+        }
+
+        function openFile(filename) {
+            if(window.parent && window.parent.document && typeof window.parent.document.body.openFile === 'function') {
+                window.parent.document.body.openFile(filename);
+            }
+        }
+        showMain();
+        const systemweb = window.parent.document.body;
+        function updateTheme() {
+            const theme = systemweb.getAttribute('data-theme');
+            document.body.setAttribute('data-theme', theme);
+        }
+        updateTheme();
+        const observer = new MutationObserver(() => updateTheme());
+        observer.observe(systemweb, { attributes: true, attributeFilter: ['data-theme'] });
+    </script>
+</body>
+</html>

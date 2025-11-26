@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family: monospace; }
+
+        body {
+            background: black;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #terminal {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            color: #ffffff;
+            background: black;
+            font-size: 15px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            line-height: 1.3em;
+        }
+
+        .input-line {
+            display: inline;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            background: #ffffff;
+            animation: blink 0.8s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<script>
+    const win = window.parent.document.getElementById("windowbasic");
+    win.style.minWidth = "550px";
+    win.style.width = "auto";
+
+    const term = document.getElementById("terminal");
+
+    let currentInput = "";
+    const prompt = "> ";
+
+    let shin = "Шиндовс LL [RTM Версия LL.0.R301125.SC1611]";
+    let cmp = "Мокрософт™";
+    let scrt = "meow :3";
+
+    function print(text) {
+        term.innerHTML += text + "\n";
+        term.scrollTop = term.scrollHeight;
+    }
+
+    function renderInput() {
+        term.innerHTML = term.innerHTML.replace(/<span class="input-line">[\s\S]*$/, "");
+        term.innerHTML += `<span class="input-line">${prompt}${currentInput}</span><span class="cursor"></span>`;
+        term.scrollTop = term.scrollHeight;
+    }
+
+    print(cmp + " " + shin);
+    print("Псевдо-компания " + cmp + " - Защищено авторским правом"
+        
+    );
+    renderInput();
+
+    const commands = {
+        help() {
+            return "Команды:\n   help\n   clear\n   echo [текст]\n   time \n   setvar [переменная] [новое значение] \n   %shin% \n   %cmp% \n   %scrt% \n   about";
+        },
+        clear() {
+            term.innerHTML = "";
+            return "";
+        },
+        echo(args) {
+            return args.join(" ");
+        },
+        time() {
+            return new Date().toLocaleString();
+        },
+        "%shin%"() {
+            return shin;
+        },
+        "%cmp%"() {
+            return cmp;
+        },
+        "%scrt%"() {
+            return scrt;
+        },
+        setvar(args) {
+            if (args.length < 2) return "Использование: setvar [%переменная%] [новое значение]";
+
+            const varName = args[0];
+            const newValue = args.slice(1).join(" ");
+
+            switch(varName) {
+                case "%shin%":
+                    shin = newValue;
+                    return `%shin% установлена в "${newValue}"`;
+                case "%cmp%":
+                    cmp = newValue;
+                    return `%cmp% установлена в "${newValue}"`;
+                case "%scrt%":
+                    scrt = newValue;
+                    return `%scrt% установлена в "${newValue}"`;
+                default:
+                    return "Неизвестная переменная: " + varName;
+            }
+
+            },
+        about() {
+            return cmp + " " + shin + "\n" + "Псевдо-компания " + cmp + " - Защищено авторским правом";
+        },
+    };
+
+
+    function runCommand(text) {
+        const parts = text.trim().split(" ");
+        const cmd = parts[0];
+        const args = parts.slice(1);
+
+        if (commands[cmd]) return commands[cmd](args);
+        return "Неизвестная команда: " + cmd;
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+            currentInput += e.key;
+        } else if (e.key === "Backspace") {
+            currentInput = currentInput.slice(0, -1);
+        } else if (e.key === "Enter") {
+            term.innerHTML = term.innerHTML.replace(/<span class="input-line">[\s\S]*$/, "");
+            print(prompt + currentInput);
+
+            let output = runCommand(currentInput);
+            if (output) print(output);
+
+            currentInput = "";
+        }
+
+        renderInput();
+    });
+</script>
+
+</body>
+</html>
