@@ -1,0 +1,108 @@
+body[bcg="white"] {
+  --bcg: url('../imageres.dll/winbcg.png') center/cover no-repeat;
+}
+body[bcg="black"] {
+  --bcg: url('../imageres.dll/winbcgb.png') center/cover no-repeat;
+}
+
+
+body[data-theme="white"] {
+    --none: #000000;
+    --black: #000000;
+    --white: #ffffff;
+    --whiteblur: #3d549e40;
+    --whitefifty: rgba(255, 255, 255, 0.2);
+    --whiteseventy: rgba(255, 255, 255, 0.8);
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --maxbord: 20px;
+    --okbord: 15px;
+    --minbord: 7.5px;
+    --button-of-panel: rgba(255, 255, 255, 0.9);
+    --blackest-gad: rgb(36, 36, 36);
+    --gdone: #C6A0FF; --gdtwo: #fff4a0; --gdthree: #a0ffb8;
+    --other-white: #EFF4F9;
+    --invert: none;
+    --accent-color: #0078D4;
+    --grey: rgb(222, 222, 222);
+}
+
+body[data-theme="dark"] {
+    --none: #000000;
+    --black: #ffffff;
+    --white: rgba(0, 0, 0, 0.5);
+    --whiteblur: #3d549e40;
+    --whitefifty: rgba(0, 0, 0, 0.2);
+    --whiteseventy: rgba(0, 0, 0, 0.7);
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --maxbord: 20px;
+    --okbord: 15px;
+    --minbord: 7.5px;
+    --button-of-panel: rgba(0, 0, 0, 0.3);
+    --blackest-gad: rgb(227, 227, 227);
+    --gdone: rgba(40, 40, 40, 0.5); --gdtwo: rgba(40, 40, 40, 0.5); --gdthree: rgba(40, 40, 40, 0.5);
+
+
+    --other-white: #191919;
+    --invert: invert(3);
+    --accent-color: #0078D4;
+    --grey: rgb(31, 31, 31);
+}
+
+* {
+  font-family: var(--font);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  color: var(--black);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;    
+  outline: none;
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+
+button, a { cursor: pointer; }
+
+@keyframes winlogo {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.load {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--none);
+
+    & img {
+        width: 150px;
+        opacity: 0;
+        animation: winlogo 4s ease 1s forwards;
+    }
+}
