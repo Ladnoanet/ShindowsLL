@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шиндовс LL</title>
+    <link rel="stylesheet" href="winUI.dll/style.css">
+    <link rel="stylesheet" href="winUI.dll/explorer.css">
+    <style>* { margin: 0; padding: 0; transition: all 0.2s; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!--хули ты тут делаешь????-->
+    <style>.Desktop { width: 100%; height: calc(100% - 50px); overflow-x: hidden; } body { overflow-x: hidden; }
+
+        .THEWINDOW {
+            position: absolute;
+            background: linear-gradient(to bottom,#99B4D1 0%, #B9D1EA 10%);
+            min-width: 550px;
+            min-height: 400px;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            backdrop-filter: blur(20px);
+            transition: all 0.2s;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1000;
+            padding: 10px;
+            padding-top: 5px;
+            color: black;
+            border: 1px solid rgb(26, 26, 26, 0.5);
+        }
+
+        .window-header {
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 0 10px 0 0;
+            padding-top: 5px; padding-bottom: 5px;
+            margin-bottom: 5px;
+
+            & button {
+                width: 35px;
+                height: 20px;
+                border-radius: 2.5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 0;
+                background: url('imageres.dll/ui/classic-close.png') center/cover no-repeat;
+                transition: all 0.2s;
+                box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+
+                & img {
+                    height: 50%;
+                    filter: invert(3);
+                    display: none;
+                    transition: all 0.3s;
+                }
+            }
+        }
+
+        .window-header button:hover {
+            filter: brightness(110%);
+
+            & img {
+                filter: invert(3);
+            }
+        }
+
+        .window-main {
+            background: white;
+            flex: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="DWM.dll/dwm.css">
+</head>
+<body data-theme="white" bcg="white">
+    <div class="explorer">
+
+            <div id="windowbasic" class="THEWINDOW">
+                <div class="window-header">
+                    <div class="name">
+                        <p id="a_windowtitle">example</p>
+                    </div>
+                    <button onclick="closeawindow()"><img src="imageres.dll/ui/close.png" alt="X"></button>
+                </div>
+                <div class="window-main">
+                    <iframe id="a_windowframe" frameborder="0">
+
+                    </iframe>  
+                </div>
+            </div>
+
+            <div id="alertwindow-bcg" class="ALERTWINDOWBCG">
+                <div class="ALERTWINDOW">
+                    <div style="border-radius: 10px 10px 0 0; flex-direction: column; gap: 0;" class="alertmore">
+                        <p>Шиндовс Доебендер</p>
+                        <h3 id="alertmessage">Сообщение</h3>
+                    </div>
+                    <div class="mainalert">
+                        <p>Шиндовс Доебендер решил, что нехер тебе это трогать!!!</p>
+
+                    </div>
+                    <div style="border-radius: 0 0 10px 10px;" class="alertmore">
+                        <button onclick="closealert()" style="background: var(--accent-color); color: white;">Ну ладна...</button>
+                        <button onclick="closealert()" >ДА ТЫ ЗАЕБАЛ ЕЩЕ В X</button>
+                    </div>
+                </div>
+            </div>
+
+
+        <div id="gadgetpanel" class="gadget-panel gadget-not">
+            <p style="font-size: 30px; margin-bottom: 20px;" id="timegad"></p>
+            <div class="gadget" style="background: var(--gdone);">
+                <p style="margin-bottom: 10px; font-size: 15px;">ТОП 3 НОВОСТЕЙ ОНЛАЙН</p>
+                <div class="gadgetmain">
+                    <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">Новый шиндовс</span>ЧЕГГО??? ШИНДОВС LL?!</p>
+                    <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">Мокрософт</span>Проект Мокрософт был оживлен</p>
+                    <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">база шиндовс</span>Шиндовс сменил архитектуру</p>
+                    <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">Виселица</span>Шиндовс Висла начнет стадию перезагрузку</p>
+                </div>
+            </div>
+            <div class="gadget" style="background: var(--gdtwo);">
+                <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">Рогалик</span>Лягушки пропали</p>
+            </div>
+            <div class="gadget" style="background: var(--gdthree);">
+                <p style="display: flex; flex-direction: column;"><span style="color: var(--blackest-gad); font-size: 12px;">Помидор</span>ЛЯГУШКИ ВЕРНУЛИСЬ!!!!111</p>
+            </div>
+        </div>
+        <div id="startpanel" class="start-panel start-not">
+            <div class="appstartmain">
+                <div class="appblock">
+                    <p class="appblock-header">Приклеено</p>
+                    <div class="appsstart">
+                        <div onclick="openwindow(app='Файлы')" class="appinstart">
+                            <img src="imageres.dll/explorer.png" alt="App">
+                            <p>Файлы</p>
+                        </div>
+                        <div onclick="openwindow(app='Сэттингс')" class="appinstart">
+                            <img src="imageres.dll/settings.png" alt="App">
+                            <p>Сэттингс</p>
+                        </div>
+                        <div onclick="openwindow(app='Ебобо')" class="appinstart">
+                            <img src="imageres.dll/ebobo browser.png" alt="App">
+                            <p>Ебобо</p>
+                        </div>
+                        <div onclick="openwindow(app='Стор')" class="appinstart">
+                            <img src="imageres.dll/store.png" alt="App">
+                            <p>Стор</p>
+                        </div>
+                        <div onclick="openwindow(app='Блокнот')" class="appinstart">
+                            <img src="imageres.dll/notepad.png" alt="App">
+                            <p>Блокнот</p>
+                        </div>
+                        <div onclick="openwindow(app='Тимс')" class="appinstart">
+                            <img src="imageres.dll/teams.png" alt="App">
+                            <p>Тимс</p>
+                        </div>
+                        <div onclick="openwindow(app='Писанина')" class="appinstart">
+                            <img src="imageres.dll/pisanina.svg" alt="App">
+                            <p>Писанина</p>
+                        </div>
+                        <div onclick="openwindow(app='Линуксоид')" class="appinstart">
+                            <img src="imageres.dll/terminal.png" alt="App">
+                            <p>Линуксоид</p>
+                        </div>
+                        <div onclick="openwindow(app='Стим')" class="appinstart">
+                            <img src="imageres.dll/steam.svg" alt="App">
+                            <p>Стим</p>
+                        </div>
+                        <div onclick="openwindow(app='Алгебра')" class="appinstart">
+                            <img src="imageres.dll/calculator.png" alt="App">
+                            <p>Алгебра</p>
+                        </div>
+                        <div onclick="openwindow(app='Шинвер')" class="appinstart">
+                            <img src="imageres.dll/info.png" alt="App">
+                            <p>Шинвер</p>
+                        </div>
+                        <div onclick="openwindow(app='Карандаш')" class="appinstart">
+                            <img src="imageres.dll/paint.png" alt="App">
+                            <p>Карандаш</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="startfooter">
+                <div class="user-footerstart" style="height: 100%; display: flex; align-items: center; gap:10px">
+                    <div class="user-in-userstartfooter"><img src="imageres.dll/user.svg" alt="юзер"></div>
+                    <p>Юзабилизер</p>
+                </div>
+                <button><img src="imageres.dll/ui/power.png" alt="off"></button>
+            </div>
+        </div>
+        <div id="searchpanel" class="start-panel search-not searchpanel">
+            <input class="search-input" type="text" placeholder="🔍 жмякай сюда и пиши ">
+            <p>Все приложения</p>
+            <div class="apps">
+                <div class="appinapps">А</div>
+                <div onclick="openwindow(app='Алгебра')" class="appinapps">
+                    <img src="imageres.dll/calculator.png"></img>Алгебра
+                </div>
+
+                <div class="appinapps">Б</div>
+                <div onclick="openwindow(app='Блокнот')" class="appinapps">
+                    <img src="imageres.dll/notepad.png"></img>Блокнот
+                </div>
+
+                <div class="appinapps">Е</div>
+                <div onclick="openwindow(app='Ебобо')" class="appinapps">
+                    <img src="imageres.dll/ebobo browser.png"></img>Ебобо
+                </div>
+
+                <div class="appinapps">К</div>
+                <div onclick="openwindow(app='Карандаш')" class="appinapps">
+                    <img src="imageres.dll/paint.png"></img>Карандаш
+                </div>
+
+                <div class="appinapps">Л</div>
+                <div onclick="openwindow(app='Линуксоид')" class="appinapps">
+                    <img src="imageres.dll/terminal.png"></img>Линуксоид
+                </div>
+
+                <div class="appinapps">П</div>
+                <div onclick="openwindow(app='Писанина')" class="appinapps">
+                    <img src="imageres.dll/pisanina.svg"></img>Писанина
+                </div>
+
+                <div class="appinapps">С</div>
+                <div onclick="openwindow(app='Стор')" class="appinapps">
+                    <img src="imageres.dll/store.png"></img>Стор
+                </div>
+                <div onclick="openwindow(app='Стим')" class="appinapps">
+                    <img src="imageres.dll/steam.svg"></img>Стим
+                </div>
+                <div onclick="openwindow(app='Сэттингс')" class="appinapps">
+                    <img src="imageres.dll/settings.png"></img>Сэттингс
+                </div>
+
+                <div class="appinapps">Т</div>
+                <div onclick="openwindow(app='Тимс')" class="appinapps">
+                    <img src="imageres.dll/teams.png"></img>Тимс
+                </div>
+
+                <div class="appinapps">Ф</div>
+                <div onclick="openwindow(app='Файлы')" class="appinapps">
+                    <img src="imageres.dll/explorer.png"></img>Файлы
+                </div>
+
+                <div class="appinapps">Ш</div>
+                <div onclick="openwindow(app='Шинвер')" class="appinapps">
+                    <img src="imageres.dll/info.png"></img>Шинвер
+                </div>
+            </div>
+        </div>
+        <div id="notificationpanel" class="notification-panel notif-not">
+            <div class="notifications">
+                <div class="notif-header">
+                    <p>Уведомы</p>
+                </div>
+                <div id="1" class="notif">
+                    <p>давай велкам сюда в Llll</p>
+                    <button onclick="id = '1'; delnotif(id)">Ну спасибо</button>
+                </div>
+                <div id="2" class="notif">
+                    <p>С обновлением тип</p>
+                    <button onclick="id = '2'; delnotif(id)">Давай, бывай</button>
+                </div>
+            </div>
+            <div class="notif-more">
+                <button id="wifi" onclick="setwifi()" class="notif-more-but-yes"><img src="imageres.dll/ui/wifi.png" alt="вайфай"></button>
+                <button id="theme" onclick="settheme()" class="notif-more-but-not"><img src="imageres.dll/ui/brightness.png" alt="тема"></button>
+                <button id="night" onclick="setnight()" class="notif-more-but-not"><img src="imageres.dll/ui/moon.png" alt="ночь"></button>
+            </div>
+        </div>
+
+        <div class="panel-of-task">
+            <div style="justify-content: left;" class="button-of-gadgets">
+                <button class="button-of-more">
+                    <img onclick="setgadgetstate()" style="height: 70%;" src="imageres.dll/widget.png" alt="виджеты">
+                </button>
+            </div>
+            <div style="justify-content: center;" class="main-of-panel">
+                <button onclick="setstartstate()" class="start-button"><img src="imageres.dll/startimg.svg" alt="ПУСК"></button>
+                <button onclick="setsearchstate()" class="panel-item"><img style="filter: var(--invert);" src="imageres.dll/search.png" alt="ПОИСК"></button>
+                <button onclick="openwindow(app='Файлы')" class="panel-item"><img src="imageres.dll/explorer.png" alt="ПОИСК"></button>
+                <button onclick="openwindow(app='Сэттингс')" class="panel-item"><img src="imageres.dll/settings.png" alt="ПОИСК"></button>
+                <button onclick="openwindow(app='Ебобо')" class="panel-item"><img src="imageres.dll/ebobo browser.png" alt="ПОИСК"></button>
+                <button onclick="openwindow(app='Стор')" class="panel-item"><img src="imageres.dll/store.png" alt="ПОИСК"></button>
+            </div>
+            <div style="justify-content: right;" class="more-of-panel">
+                <button onclick="setnotificationpanelstate()" class="button-of-more">
+                    <img id="wifisymb" style="filter: var(--invert);" src="imageres.dll/ui/wifi.png" alt="вайфай">
+                    <img style="filter: var(--invert);" src="imageres.dll/ui/audio3.png" alt="аудио">
+                </button>
+                <button onclick="setnotificationpanelstate()" style="flex-direction: column; font-size: 12.5px; gap: 0px;" class="button-of-more">
+                    <p id="time">00:00</p>
+                    <p id="date">00/00/00</p>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let startstate = false;
+        let searchstate = false;
+        let gadgetstate = false;
+        let notifstate = false;
+        const STARTPANEL = document.getElementById("startpanel");
+        const SEARCHPANEL = document.getElementById("searchpanel");
+        const GADGETPANEL = document.getElementById("gadgetpanel");
+        const NOTIFPANEL = document.getElementById("notificationpanel");
+
+        function setstartstate() {
+            if (!startstate) {
+                searchstate = false;
+                SEARCHPANEL.classList.remove('search-yes');
+                SEARCHPANEL.classList.add('search-not');
+
+                gadgetstate = false;
+                GADGETPANEL.classList.remove('gadget-yes');
+                GADGETPANEL.classList.add('gadget-not');
+
+                NOTIFPANEL.classList.remove('notif-yes');
+                NOTIFPANEL.classList.add('notif-not');
+                notifstate = false;
+                
+                STARTPANEL.classList.remove('start-not');
+                STARTPANEL.classList.add('start-yes');
+                startstate = true;
+            } else {
+                STARTPANEL.classList.remove('start-yes');
+                STARTPANEL.classList.add('start-not');
+                startstate = false;
+            };
+        };
+
+        function setsearchstate() {
+            if (!searchstate) {
+                startstate = false;
+                STARTPANEL.classList.remove('start-yes');
+                STARTPANEL.classList.add('start-not');
+
+                gadgetstate = false;
+                GADGETPANEL.classList.remove('gadget-yes');
+                GADGETPANEL.classList.add('gadget-not');
+
+                NOTIFPANEL.classList.remove('notif-yes');
+                NOTIFPANEL.classList.add('notif-not');
+                notifstate = false;
+
+                SEARCHPANEL.classList.remove('search-not');
+                SEARCHPANEL.classList.add('search-yes');
+                searchstate = true;
+            } else {
+                SEARCHPANEL.classList.remove('search-yes');
+                SEARCHPANEL.classList.add('search-not');
+                searchstate = false;
+            };
+        };
+
+        function setgadgetstate() {
+            if (!gadgetstate) {
+                startstate = false;
+                STARTPANEL.classList.remove('start-yes');
+                STARTPANEL.classList.add('start-not');
+
+                SEARCHPANEL.classList.remove('search-yes');
+                SEARCHPANEL.classList.add('search-not');
+                searchstate = false;
+
+                NOTIFPANEL.classList.remove('notif-yes');
+                NOTIFPANEL.classList.add('notif-not');
+                notifstate = false;
+
+                GADGETPANEL.classList.remove('gadget-not');
+                GADGETPANEL.classList.add('gadget-yes');
+                gadgetstate = true;
+            } else {
+                GADGETPANEL.classList.remove('gadget-yes');
+                GADGETPANEL.classList.add('gadget-not');
+                gadgetstate = false;
+            };
+        };
+
+        function setnotificationpanelstate() {
+            if (!notifstate) {
+                startstate = false;
+                STARTPANEL.classList.remove('start-yes');
+                STARTPANEL.classList.add('start-not');
+
+                SEARCHPANEL.classList.remove('search-yes');
+                SEARCHPANEL.classList.add('search-not');
+                searchstate = false;
+
+                GADGETPANEL.classList.remove('gadget-yes');
+                GADGETPANEL.classList.add('gadget-not');
+                gadgetstate = false;
+
+                NOTIFPANEL.classList.remove('notif-not');
+                NOTIFPANEL.classList.add('notif-yes');
+                notifstate = true;
+            } else {
+                NOTIFPANEL.classList.remove('notif-yes');
+                NOTIFPANEL.classList.add('notif-not');
+                notifstate = false;
+            };
+        };
+
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear().toString().slice(-2);
+            const dateString = `${day}/${month}/${year}`;
+
+            document.getElementById("time").textContent = timeString;
+            document.getElementById("timegad").textContent = timeString;
+            document.getElementById("date").textContent = dateString;
+        };
+
+        setInterval(updateTime, 1000);
+
+        updateTime();
+
+        let id = '';
+
+        function delnotif(id) {
+            const notification = document.getElementById(id);
+            notification.classList.add('notification-not-animate');
+
+            setTimeout(() => {
+                notification.classList.remove('notification-not-animate');
+                notification.classList.add('notification-not');
+            }, 210);
+        };
+
+        let wifiis = true;
+        let themeis = false;
+        let nightis = false;
+        const wifibutton = document.getElementById("wifi");
+        const themebutton = document.getElementById("theme");
+        const nightbutton = document.getElementById("night");
+
+        function setwifi() {
+            if (!wifiis) {
+                wifibutton.classList.remove('notif-more-but-not');
+                wifibutton.classList.add('notif-more-but-yes');
+                wifiis = true;
+                document.getElementById("wifisymb").style.display = "block";
+            } else {
+                wifibutton.classList.remove('notif-more-but-yes');
+                wifibutton.classList.add('notif-more-but-not');
+                wifiis = false;
+                document.getElementById("wifisymb").style.display = "none";
+            };
+        };
+
+        function settheme() {
+            if (!themeis) {
+                themebutton.classList.remove('notif-more-but-not');
+                themebutton.classList.add('notif-more-but-yes');
+                themeis = true;
+                document.body.setAttribute("data-theme", "dark");
+            } else {
+                themebutton.classList.remove('notif-more-but-yes');
+                themebutton.classList.add('notif-more-but-not');
+                themeis = false;
+                document.body.setAttribute("data-theme", "white");
+            };
+        };
+
+        function setnight() {
+            if (!nightis) {
+                document.body.style.filter = 'brightness(40%)';
+                nightbutton.classList.remove('notif-more-but-not');
+                nightbutton.classList.add('notif-more-but-yes');
+                nightis = true;
+            } else {
+                document.body.style.filter = 'brightness(100%)';
+                nightbutton.classList.remove('notif-more-but-yes');
+                nightbutton.classList.add('notif-more-but-not');
+                nightis = false;
+            };
+        };
+
+    </script>
+    <script src="DWM.dll/dwm.js"></script>
+</body>
+</html>
